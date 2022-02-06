@@ -5,6 +5,7 @@
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     flake-utils.url = "github:numtide/flake-utils";
     naersk.url = "github:nix-community/naersk";
+    nvim-traxys.url = "github:traxys/nvim-flake";
     stylua = {
       url = "github:johnnymorganz/stylua";
       flake = false;
@@ -16,8 +17,11 @@
       naersk-lib = inputs.naersk.lib."${system}";
     in
     {
+      overlay = inputs.nvim-traxys.overlay."${system}";
+
       home-managerModule = { config, lib, pkgs, ... }: {
         home.packages = with pkgs; [
+          neovimTraxys
           rust-analyzer
           clang-tools
           nodePackages.bash-language-server
